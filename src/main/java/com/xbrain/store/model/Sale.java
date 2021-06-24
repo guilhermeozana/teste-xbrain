@@ -1,7 +1,6 @@
 package com.xbrain.store.model;
 
-import com.xbrain.store.model.Seller;
-
+import java.io.Serializable;
 import java.time.Instant;
 
 import javax.persistence.Entity;
@@ -22,7 +21,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Sale {
+public class Sale implements Serializable{
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

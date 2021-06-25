@@ -31,5 +31,5 @@ public class Seller implements Serializable{
     @NotEmpty
     private String name;
     @OneToMany(mappedBy = "seller", fetch = FetchType.LAZY)
-    private final List<Sale> sales = new ArrayList<>();
+    private List<Sale> sales = new ArrayList<>();
 }

@@ -18,17 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/sallers/")
+@RequestMapping("/api/sellers")
 @RequiredArgsConstructor
 public class SellerController {
     private final SellerService sellerService;
 
     @PostMapping
-    public ResponseEntity<Seller> createSeller(@RequestBody SellerRequest sellerRequest){
-        return ResponseEntity.status(HttpStatus.OK).body(sellerService.createSeller(sellerRequest));
+    public ResponseEntity<SellerResponse> createSeller(@RequestBody SellerRequest sellerRequest){
+        return ResponseEntity.status(HttpStatus.CREATED).body(sellerService.createSeller(sellerRequest));
     }
 
-    @GetMapping("getSellers")
+    @GetMapping("/getall")
     public ResponseEntity<List<SellerResponse>> getSellers(){
         return ResponseEntity.status(HttpStatus.OK).body(sellerService.getSellers());
     }

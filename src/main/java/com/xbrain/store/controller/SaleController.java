@@ -1,6 +1,7 @@
 package com.xbrain.store.controller;
 
 import com.xbrain.store.dto.SaleRequest;
+import com.xbrain.store.dto.SaleResponse;
 import com.xbrain.store.model.Sale;
 import com.xbrain.store.service.SaleService;
 
@@ -15,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/sales/")
+@RequestMapping("/api/sales")
 @RequiredArgsConstructor
 public class SaleController {
     private final SaleService saleService;
 
     @PostMapping
-    public ResponseEntity<Sale> createSale(@RequestBody SaleRequest saleRequest){
+    public ResponseEntity<SaleResponse> createSale(@RequestBody SaleRequest saleRequest){
         return ResponseEntity.status(HttpStatus.OK).body(saleService.createSale(saleRequest));
     }
 }

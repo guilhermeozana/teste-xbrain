@@ -20,17 +20,17 @@ import lombok.RequiredArgsConstructor;
 public class SellerService {
     private final SellerRepository sellerRepository;
     private final SaleRepository saleRepository;
-    private final SellerMapper sellerMapper;
 
-    public Seller createSeller(SellerRequest sellerRequest){
-        return sellerRepository.save(sellerMapper.mapDtoToSeller(sellerRequest));
+    public SellerResponse createSeller(SellerRequest sellerRequest){
+        Seller seller = sellerRepository.save(SellerMapper.INSTANCE.mapDtoToSeller(sellerRequest));
+        return SellerMapper.INSTANCE.mapSellerToDto(seller);
     }
 
     public List<SellerResponse> getSellers(){
 
         return sellerRepository.findAll()
                 .stream()
-                .map(sellerMapper::mapSellerToDto)
+                .map(SellerMapper.INSTANCE::mapSellerToDto)
                 .map((sellerResponse) -> {
                     List<Sale> sales = saleRepository.findAllBySellerId(sellerResponse.getId());
                     sellerResponse.setTotalSales(calculateTotalSales(sales));
@@ -49,6 +49,9 @@ public class SellerService {
     }
 
     public Double calculateAverageDailySales(List<Sale> sales){
+        if(sales.isEmpty()){
+            return 0.0;
+        }
         return calculateTotalSales(sales) / sales.size();
     }
 

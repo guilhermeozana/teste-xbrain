@@ -8,15 +8,18 @@ import com.xbrain.store.model.Seller;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel="spring")
 public interface SellerMapper {
+
+    SellerMapper INSTANCE = Mappers.getMapper(SellerMapper.class);
     
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "name", source = "sellerRequest.name")
     Seller mapDtoToSeller(SellerRequest sellerRequest);
 
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "id", source = "seller.id")
     @Mapping(target = "name", source = "seller.name")
     SellerResponse mapSellerToDto(Seller seller);
 }

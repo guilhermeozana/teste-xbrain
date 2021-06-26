@@ -1,7 +1,5 @@
 package com.xbrain.store.mapper;
 
-import java.util.List;
-
 import com.xbrain.store.dto.SellerRequest;
 import com.xbrain.store.dto.SellerResponse;
 import com.xbrain.store.model.Seller;
@@ -18,6 +16,10 @@ public interface SellerMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "name", source = "sellerRequest.name")
     Seller mapDtoToSeller(SellerRequest sellerRequest);
+
+    @Mapping(target = "id", source = "sellerRequest.id")
+    @Mapping(target = "name", source = "sellerRequest.name")
+    Seller mapDtoToSellerToUpdate(SellerRequest sellerRequest);
 
     @Mapping(target = "id", source = "seller.id")
     @Mapping(target = "name", source = "seller.name")

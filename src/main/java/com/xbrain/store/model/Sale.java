@@ -1,7 +1,7 @@
 package com.xbrain.store.model;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,7 +28,7 @@ public class Sale implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Instant date;
+    private LocalDate date;
     @NotEmpty
     private Double value;
     @ManyToOne(fetch = FetchType.LAZY)

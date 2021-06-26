@@ -7,10 +7,7 @@ import com.xbrain.store.model.Seller;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Mapper(componentModel = "spring")
 public interface SaleMapper {
@@ -18,10 +15,16 @@ public interface SaleMapper {
     SaleMapper INSTANCE = Mappers.getMapper(SaleMapper.class);
     
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "date", expression = "java(java.time.Instant.now())")
+    @Mapping(target = "date", expression = "java(java.time.LocalDate.now())")
     @Mapping(target = "value", source = "saleRequest.value")
     @Mapping(target = "seller", source = "seller")
     Sale mapDtoToSale(SaleRequest saleRequest, Seller seller);
+
+    @Mapping(target = "id", source = "saleRequest.id")
+    @Mapping(target = "date", expression = "java(java.time.LocalDate.now())")
+    @Mapping(target = "value", source = "saleRequest.value")
+    @Mapping(target = "seller", source = "seller")
+    Sale mapDtoToSaleToUpdate(SaleRequest saleRequest, Seller seller);
 
     @Mapping(target = "id", source = "sale.id")
     @Mapping(target = "value", source = "sale.value")

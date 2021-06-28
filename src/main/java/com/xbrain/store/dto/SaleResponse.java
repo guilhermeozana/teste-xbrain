@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SaleResponse {
     private Long id;
-    private String value;
+    private Double value;
     private Long sellerId;
 }

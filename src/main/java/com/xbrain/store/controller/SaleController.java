@@ -27,7 +27,7 @@ public class SaleController {
 
     @PostMapping
     public ResponseEntity<SaleResponse> createSale(@RequestBody SaleRequest saleRequest){
-        return ResponseEntity.status(HttpStatus.OK).body(saleService.createSale(saleRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(saleService.createSale(saleRequest));
     }
 
     @GetMapping("/all")

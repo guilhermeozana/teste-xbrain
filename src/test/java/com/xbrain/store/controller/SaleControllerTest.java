@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatcher;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
@@ -47,12 +46,13 @@ public class SaleControllerTest {
     }
 
     @Test
-    @DisplayName("createSale save sale and returns saleresponse when successful")
-    void createSale_saveSaleAndReturnsSaleResponse_WhenSuccessful(){
-        SaleResponse saleResponse = saleController.createSale(SaleRequestCreator.createSaleRequestToSaveSale()).getBody();
+    @DisplayName("createSale saves sale and returns saleresponse when successful")
+    void createSale_savesSaleAndReturnsSaleResponse_WhenSuccessful(){
+        ResponseEntity<SaleResponse> saleResponseEntity = saleController.createSale(SaleRequestCreator.createSaleRequestToSaveSale());
         
-        Assertions.assertNotNull(saleResponse);
-        Assertions.assertEquals(SaleResponseCreator.createSaleResponse() , saleResponse);
+        Assertions.assertNotNull(saleResponseEntity.getBody());
+        Assertions.assertEquals(SaleResponseCreator.createSaleResponse() , saleResponseEntity.getBody());
+        Assertions.assertEquals(HttpStatus.CREATED , saleResponseEntity.getStatusCode());
     }
 
     @Test
@@ -62,14 +62,15 @@ public class SaleControllerTest {
         Long expectedSellerId = SaleResponseCreator.createSaleResponse().getSellerId();
         Long expectedId = SaleResponseCreator.createSaleResponse().getId();
 
-        List<SaleResponse> sales = saleController.getAllSales().getBody();
+        ResponseEntity<List<SaleResponse>> salesResponseEntity = saleController.getAllSales();
 
-        Assertions.assertNotNull(sales);
-        Assertions.assertFalse(sales.isEmpty());
-        Assertions.assertTrue(sales.size() == 1);
-        Assertions.assertEquals(expectedValue, sales.get(0).getValue());
-        Assertions.assertEquals(expectedSellerId, sales.get(0).getSellerId());
-        Assertions.assertEquals(expectedId, sales.get(0).getId());
+        Assertions.assertNotNull(salesResponseEntity.getBody());
+        Assertions.assertFalse(salesResponseEntity.getBody().isEmpty());
+        Assertions.assertTrue(salesResponseEntity.getBody().size() == 1);
+        Assertions.assertEquals(expectedValue, salesResponseEntity.getBody().get(0).getValue());
+        Assertions.assertEquals(expectedSellerId, salesResponseEntity.getBody().get(0).getSellerId());
+        Assertions.assertEquals(expectedId, salesResponseEntity.getBody().get(0).getId());
+        Assertions.assertEquals(HttpStatus.OK, salesResponseEntity.getStatusCode());
     }
 
     @Test
@@ -78,10 +79,11 @@ public class SaleControllerTest {
         BDDMockito.when(saleServiceMock.getAllSales())
                 .thenReturn(List.of());
 
-        List<SaleResponse> sales = saleController.getAllSales().getBody();
+        ResponseEntity<List<SaleResponse>> selesResponseEntity = saleController.getAllSales();
 
-        Assertions.assertNotNull(sales);
-        Assertions.assertTrue(sales.isEmpty());
+        Assertions.assertNotNull(selesResponseEntity.getBody());
+        Assertions.assertTrue(selesResponseEntity.getBody().isEmpty());
+        Assertions.assertEquals(HttpStatus.OK ,selesResponseEntity.getStatusCode());
     }
 
     @Test
@@ -91,12 +93,13 @@ public class SaleControllerTest {
         Long expectedSellerId = SaleResponseCreator.createSaleResponse().getSellerId();
         Long expectedId = SaleResponseCreator.createSaleResponse().getId();
 
-        SaleResponse sale = saleController.getSaleById(1L).getBody();
+        ResponseEntity<SaleResponse> salesResponseEntity = saleController.getSaleById(1L);
 
-        Assertions.assertNotNull(sale);
-        Assertions.assertEquals(expectedValue, sale.getValue());
-        Assertions.assertEquals(expectedSellerId, sale.getSellerId());
-        Assertions.assertEquals(expectedId, sale.getId());
+        Assertions.assertNotNull(salesResponseEntity.getBody());
+        Assertions.assertEquals(expectedValue, salesResponseEntity.getBody().getValue());
+        Assertions.assertEquals(expectedSellerId, salesResponseEntity.getBody().getSellerId());
+        Assertions.assertEquals(expectedId, salesResponseEntity.getBody().getId());
+        Assertions.assertEquals(HttpStatus.OK, salesResponseEntity.getStatusCode());
     }
 
     @Test

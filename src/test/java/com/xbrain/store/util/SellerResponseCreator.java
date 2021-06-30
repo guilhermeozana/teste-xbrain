@@ -7,8 +7,8 @@ public class SellerResponseCreator {
         return SellerResponse.builder()
                 .id(1L)
                 .name("Guilherme Campos")
-                .averageDailySales(0.0)
                 .totalSales(0.0)
+                .averageDailySales(0.0)
                 .build();
     }
 
@@ -16,8 +16,6 @@ public class SellerResponseCreator {
         return SellerResponse.builder()
                 .id(1L)
                 .name("Guilherme Ozana")
-                .averageDailySales(0.0)
-                .totalSales(0.0)
                 .build();
     }
 }

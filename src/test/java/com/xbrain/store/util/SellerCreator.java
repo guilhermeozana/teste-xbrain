@@ -1,7 +1,5 @@
 package com.xbrain.store.util;
 
-import java.util.List;
-
 import com.xbrain.store.model.Seller;
 
 public class SellerCreator {

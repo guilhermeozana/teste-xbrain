@@ -1,5 +1,7 @@
 package com.xbrain.store.util;
 
+import java.time.LocalDate;
+
 import com.xbrain.store.model.Sale;
 import com.xbrain.store.model.Seller;
 
@@ -9,6 +11,15 @@ public class SaleCreator {
         return Sale.builder()
                 .value(100.0)
                 .seller(SellerCreator.createSeller())
+                .date(LocalDate.now())
+                .build();
+    }
+
+    public static Sale createSaleBySeller(Seller seller){
+        return Sale.builder()
+                .value(100.0)
+                .seller(seller)
+                .date(LocalDate.now())
                 .build();
     }
 

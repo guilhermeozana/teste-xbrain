@@ -27,6 +27,7 @@ public interface SaleMapper {
     Sale mapDtoToSaleToUpdate(SaleRequest saleRequest, Seller seller);
 
     @Mapping(target = "id", source = "sale.id")
+    @Mapping(target = "date", expression = "java(java.time.LocalDate.now())")
     @Mapping(target = "value", source = "sale.value")
     @Mapping(target = "sellerId", source = "sellerId")
     SaleResponse mapSaleToDto(Sale sale, Long sellerId);
